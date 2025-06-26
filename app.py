@@ -18,5 +18,5 @@ def index():
     return "🟢 Chatbot API is running!"
 
 if __name__ == '__main__':
-    # ✅ Use 0.0.0.0 for LAN access, port 5000 for development
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000)) 
+    app.run(host='0.0.0.0', port=port)
