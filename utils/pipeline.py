@@ -7,7 +7,7 @@ def process_user_message(message: str) -> dict:
     lang = detect_language(message)
     print(f"Detected language: {lang}")
 
-    # Handle Hinglish
+    # Translate non-English/Hinglish input to English for LLM understanding
     if lang == "en" and is_hinglish(message):
         lang = "hi"
         translated_input = translate_text(message, "en")
@@ -16,19 +16,19 @@ def process_user_message(message: str) -> dict:
     else:
         translated_input = message
 
-    # Emotion
+    # Run emotion analysis on translated English text
     emotion_data = analyze_emotion(translated_input)
     emotion = emotion_data.get("label", "neutral")
     confidence = round(emotion_data.get("score", 0.0), 2)
     print(f"Emotion detected: {emotion} ({confidence})")
 
-    # Reply generation
+    # Generate emotionally aligned LLM response in English
     english_reply = generate_reply(translated_input, emotion)
 
-    # Translate back to user's language
+    # Translate back to user language if needed
     final_reply = translate_text(english_reply, lang) if lang != "en" else english_reply
 
-    # Generate speech
+    # Generate audio from final response
     audio_path = generate_audio(final_reply, lang=lang)
     audio_url = f"/{audio_path}" if audio_path else None
 
@@ -39,3 +39,4 @@ def process_user_message(message: str) -> dict:
         "confidence": confidence,
         "audio": audio_url
     }
+
