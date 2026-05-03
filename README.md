@@ -59,6 +59,8 @@ pip install -r requirements.txt
 Create a .env file in the root directory:
 OPENROUTER_API_KEY=your_openrouter_api_key
 
+You can copy `.env.example` to `.env` and fill in your real OpenRouter key.
+
 Chatbot_Backend/
 ├── app.py                         # Flask entry point
 ├── config/
